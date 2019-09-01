@@ -7,7 +7,7 @@ import React, { PureComponent } from 'react'
 import { selectQueryParamsFromQueryString } from './selectQueryParamsFromQueryString'
 import { getObjectWithMappedKeys } from './getObjectWithMappedKeys'
 
-const withReactQuery = (config={}) => WrappedComponent => {
+const withQuery = (config={}) => WrappedComponent => {
   const { mapper, translater } = config
 
   let invertedMapper
@@ -15,7 +15,7 @@ const withReactQuery = (config={}) => WrappedComponent => {
     invertedMapper = invert(mapper)
   }
 
-  class _withReactQuery extends PureComponent {
+  class _withQuery extends PureComponent {
     constructor(props) {
       super(props)
       this.query = {
@@ -44,7 +44,7 @@ const withReactQuery = (config={}) => WrappedComponent => {
       } else if (typeof previousValue === 'undefined') {
         /* eslint-disable no-console */
         console.warn(
-          `Weird did you forget to mention this ${key} query param in your withReactQuery hoc?`
+          `Weird did you forget to mention this ${key} query param in your withQuery hoc?`
         )
       }
 
@@ -104,7 +104,7 @@ const withReactQuery = (config={}) => WrappedComponent => {
         return this.getSearchFromUpdate({ [key]: nextValue })
       } else if (typeof previousValue === 'undefined') {
         console.warn(
-          `Weird did you forget to mention this ${key} query param in your withReactQuery hoc?`
+          `Weird did you forget to mention this ${key} query param in your withQuery hoc?`
         )
       }
     }
@@ -130,15 +130,15 @@ const withReactQuery = (config={}) => WrappedComponent => {
     }
   }
 
-  _withReactQuery.propTypes = {
+  _withQuery.propTypes = {
     location: PropTypes.shape({
       search: PropTypes.string.isRequired
     }).isRequired,
   }
 
-  _withReactQuery.WrappedComponent = WrappedComponent
+  _withQuery.WrappedComponent = WrappedComponent
 
-  return _withReactQuery
+  return _withQuery
 }
 
-export default withReactQuery
+export default withQuery

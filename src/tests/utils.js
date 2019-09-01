@@ -1,12 +1,12 @@
 import { withRouter } from 'react-router-dom'
 
-import withReactQuery from '../withReactQuery'
+import withQuery from '../withQuery'
 
 const Test = () => null
 
-export const QueryRouterTest = withRouter(withReactQuery()(Test))
+export const QueryRouterTest = withRouter(withQuery()(Test))
 
-export const FrenchQueryRouterTest = withRouter(withReactQuery({
+export const FrenchQueryRouterTest = withRouter(withQuery({
   mapper: {
     'lieu': "venue"
   }

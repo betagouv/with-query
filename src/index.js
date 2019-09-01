@@ -1,6 +1,6 @@
-import withReactQuery from './withReactQuery'
+import withQuery from './withQuery'
 
 export * from './getObjectWithMappedKeys'
 export * from './selectQueryParamsFromQueryString'
 
-export default withReactQuery
+export default withQuery
