@@ -18,8 +18,8 @@ describe('src | components | pages | hocs | withQuery', () => {
   })
 
   describe('functions ', () => {
-    describe('getQueryParams', () => {
-      it('withQuery passes a query.getQueryParams function that formats the location search string into in a params object', () => {
+    describe('getParams', () => {
+      it('withQuery passes a query.getParams function that formats the location search string into in a params object', () => {
         // given
         const history = createBrowserHistory()
         history.push('/test?page=1&keywords=test&orderBy=offer.id+desc')
@@ -40,7 +40,7 @@ describe('src | components | pages | hocs | withQuery', () => {
           orderBy: "offer.id desc",
           page: "1",
         }
-        expect(query.getQueryParams()).toEqual(expectedParams)
+        expect(query.getParams()).toEqual(expectedParams)
       })
     })
 

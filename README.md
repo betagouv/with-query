@@ -5,7 +5,7 @@ A small wrapper of react-router parsing the query params from the location.searc
 [![CircleCI](https://circleci.com/gh/betagouv/with-react-query/tree/master.svg?style=svg)](https://circleci.com/gh/betagouv/with-react-query/tree/master)
 [![npm version](https://img.shields.io/npm/v/with-react-query.svg?style=flat-square)](https://npmjs.org/package/with-react-query)
 
-## Basic usage with `parse`
+## Basic usage with `getParams`
 ```javascript
 
 // Let's say you are at location '/foo?counter=1'
@@ -16,15 +16,15 @@ import withReactQuery from 'with-react-query'
 class FooPage extends PureComponent {
 
   onIncrementCounter = () => {
-    const { query } = this.props
+    const { history, query } = this.props
     const { counter } = query.parse()
     // navigate to /foo?counter=2
-    query.change({ counter: counter + 1 })
+    history.push(query.getSearchFromUpdate({ counter: counter + 1 }))
   }
 
   render () {
     const { query } = this.props
-    const { counter } = query.parse()
+    const { counter } = query.getParams()
     return (
       <div>
         My counter is equal to {counter}
@@ -50,15 +50,15 @@ import withReactQuery from 'with-react-query'
 class FooPage extends PureComponent {
 
   onIncrementCounter = () => {
-    const { query } = this.props
-    const { counter } = query.translate()
+    const { history, query } = this.props
+    const { counter } = query.getTranslatedParams()
     // navigate to /foo?compteur=2
-    query.change({ counter: counter + 1 })
+    history.push(query.getSearchFromUpdate({ counter: counter + 1 }))
   }
 
   render () {
     const { query } = this.props
-    const { counter } = query.translate()
+    const { counter } = query.getTranslatedParams()
     return (
       <div>
         My counter is equal to {counter}

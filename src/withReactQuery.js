@@ -19,7 +19,7 @@ const withReactQuery = (config={}) => WrappedComponent => {
     constructor(props) {
       super(props)
       this.query = {
-        getQueryParams: this.getQueryParams,
+        getParams: this.getParams,
         getSearchFromAdd: this.getSearchFromAdd,
         getSearchFromRemove: this.getSearchFromRemove,
         getSearchFromUpdate: this.getSearchFromUpdate,
@@ -27,16 +27,16 @@ const withReactQuery = (config={}) => WrappedComponent => {
       }
     }
 
-    getQueryParams = () => {
+    getParams = () => {
       const { location } = this.props
       return selectQueryParamsFromQueryString(location.search)
     }
 
     getSearchFromAdd = (key, value) => {
-      const queryParams = this.getQueryParams()
+      const params = this.getParams()
 
       let nextValue = value
-      const previousValue = queryParams[key]
+      const previousValue = params[key]
       if (previousValue && previousValue.length) {
         const args = previousValue.split(',').concat([value])
         args.sort()
@@ -52,36 +52,36 @@ const withReactQuery = (config={}) => WrappedComponent => {
     }
 
     getSearchFromUpdate = notTranslatedQueryParamsUpdater => {
-      const queryParams = this.getQueryParams()
+      const params = this.getParams()
 
-      let queryParamsUpdater = notTranslatedQueryParamsUpdater
+      let paramsUpdater = notTranslatedQueryParamsUpdater
       if (translater) {
-        queryParamsUpdater = translater(queryParamsUpdater)
+        paramsUpdater = translater(paramsUpdater)
       } else if (mapper) {
-        queryParamsUpdater = getObjectWithMappedKeys(
-          queryParamsUpdater, invertedMapper)
+        paramsUpdater = getObjectWithMappedKeys(
+          paramsUpdater, invertedMapper)
       }
 
-      const queryParamsUpdaterKeys = Object.keys(queryParamsUpdater)
-      const concatenatedQueryParamKeys = Object.keys(queryParams)
-                                               .concat(queryParamsUpdaterKeys)
-      const queryParamsKeys = uniq(concatenatedQueryParamKeys)
+      const paramsUpdaterKeys = Object.keys(paramsUpdater)
+      const concatenatedQueryParamKeys = Object.keys(params)
+                                               .concat(paramsUpdaterKeys)
+      const paramsKeys = uniq(concatenatedQueryParamKeys)
 
       const nextQueryParams = {}
-      queryParamsKeys.forEach(queryParamsKey => {
-        if (queryParamsUpdater[queryParamsKey]) {
-          nextQueryParams[queryParamsKey] = queryParamsUpdater[queryParamsKey]
+      paramsKeys.forEach(paramsKey => {
+        if (paramsUpdater[paramsKey]) {
+          nextQueryParams[paramsKey] = paramsUpdater[paramsKey]
           return
         }
         if (
-          queryParamsUpdater[queryParamsKey] !== null &&
-          typeof queryParams[queryParamsKey] !== 'undefined'
+          paramsUpdater[paramsKey] !== null &&
+          typeof params[paramsKey] !== 'undefined'
         ) {
-          nextQueryParams[queryParamsKey] = queryParams[queryParamsKey]
+          nextQueryParams[paramsKey] = params[paramsKey]
           return
         }
-        if (queryParamsUpdater[queryParamsKey] === '') {
-          nextQueryParams[queryParamsKey] = null
+        if (paramsUpdater[paramsKey] === '') {
+          nextQueryParams[paramsKey] = null
         }
       })
 
@@ -91,9 +91,9 @@ const withReactQuery = (config={}) => WrappedComponent => {
     }
 
     getSearchFromRemove = (key, value) => {
-      const queryParams = this.getQueryParams()
+      const params = this.getParams()
 
-      const previousValue = queryParams[key]
+      const previousValue = params[key]
       if (previousValue && previousValue.length) {
         let nextValue = previousValue
           .replace(`,${value}`, '')
@@ -110,14 +110,14 @@ const withReactQuery = (config={}) => WrappedComponent => {
     }
 
     getTranslatedParams = () => {
-      const queryParams = this.getQueryParams()
+      const params = this.getParams()
       if (translater) {
-        return translater(queryParams)
+        return translater(params)
       }
       if (mapper) {
-        return getObjectWithMappedKeys(queryParams, mapper)
+        return getObjectWithMappedKeys(params, mapper)
       }
-      return queryParams
+      return params
     }
 
     render() {
