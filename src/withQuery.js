@@ -9,8 +9,6 @@ import { getObjectWithMappedKeys } from './getObjectWithMappedKeys'
 
 const withQuery = (config={}) => WrappedComponent => {
   const { mapper, translater } = config
-  const creationKey = config.creationKey || 'creation'
-  const modificationKey = config.modificationKey || 'modification'
 
   let invertedMapper
   if (mapper) {
