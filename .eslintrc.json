@@ -25,7 +25,6 @@
     "browser": true
   },
   "rules": {
-    "jest/no-test-callback": "off",
     "jest/no-hooks": "off",
     "jest/prefer-expect-assertions": "off",
     "jest/prefer-inline-snapshots": "off",

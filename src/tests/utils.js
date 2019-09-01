@@ -1,25 +1,13 @@
-import { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
 
-import withQuery from '../withQuery'
+import withReactQuery from '../withReactQuery'
 
-export class Test extends PureComponent {
-  componentDidUpdate(prevProps) {
-    const { onUpdate } = this.props
-    if (onUpdate) {
-      onUpdate(this.props, prevProps)
-    }
-  }
-  render () {
-    return null
-  }
-}
-export const QueryRouterTest = withRouter(withQuery()(Test))
+const Test = () => null
 
-export const FrenchQueryRouterTest = withRouter(withQuery({
-  creationKey: 'nouveau',
+export const QueryRouterTest = withRouter(withReactQuery()(Test))
+
+export const FrenchQueryRouterTest = withRouter(withReactQuery({
   mapper: {
     'lieu': "venue"
-  },
-  modificationKey: 'changement',
+  }
 })(Test))

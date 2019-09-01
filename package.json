@@ -1,5 +1,5 @@
 {
-  "name": "with-query",
+  "name": "with-react-query",
   "version": "1.0.0",
   "private": false,
   "main": "lib/index.js",
@@ -7,7 +7,6 @@
   "description": "A small wrapper of react-router parsing the query params from the location.search",
   "dependencies": {
     "classnames": "2.2.5",
-    "eslint": "^5.8.0",
     "lodash.invert": "^4.3.0",
     "lodash.uniq": "^4.5.0",
     "prop-types": "^15.6.2",

@@ -1,9 +1,9 @@
-# with-query
+# with-react-query
 
 A small wrapper of react-router parsing the query params from the location.search
 
-[![CircleCI](https://circleci.com/gh/betagouv/with-query/tree/master.svg?style=svg)](https://circleci.com/gh/betagouv/with-query/tree/master)
-[![npm version](https://img.shields.io/npm/v/with-query.svg?style=flat-square)](https://npmjs.org/package/with-query)
+[![CircleCI](https://circleci.com/gh/betagouv/with-react-query/tree/master.svg?style=svg)](https://circleci.com/gh/betagouv/with-react-query/tree/master)
+[![npm version](https://img.shields.io/npm/v/with-react-query.svg?style=flat-square)](https://npmjs.org/package/with-react-query)
 
 ## Basic usage with `parse`
 ```javascript
@@ -11,7 +11,7 @@ A small wrapper of react-router parsing the query params from the location.searc
 // Let's say you are at location '/foo?counter=1'
 import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
-import withQueryRouter from 'with-query'
+import withReactQuery from 'with-react-query'
 
 class FooPage extends PureComponent {
 
@@ -36,7 +36,7 @@ class FooPage extends PureComponent {
   }
 }
 
-export default withRouter(withQuery()(FooPage))
+export default withRouter(withReactQuery()(FooPage))
 ```
 
 ## Usage for url in foreign language with `translate`
@@ -45,7 +45,7 @@ export default withRouter(withQuery()(FooPage))
 // Let's say you are at location '/foo/compteur=1'
 import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
-import withQueryRouter from 'with-query'
+import withReactQuery from 'with-react-query'
 
 class FooPage extends PureComponent {
 
@@ -70,7 +70,7 @@ class FooPage extends PureComponent {
   }
 }
 
-export default withRouter(withQuery({
+export default withRouter(withReactQuery({
   mapper: { compteur: "counter" }
 })(FooPage))
 ```

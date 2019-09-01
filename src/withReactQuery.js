@@ -7,7 +7,7 @@ import React, { PureComponent } from 'react'
 import { selectQueryParamsFromQueryString } from './selectQueryParamsFromQueryString'
 import { getObjectWithMappedKeys } from './getObjectWithMappedKeys'
 
-const withQuery = (config={}) => WrappedComponent => {
+const withReactQuery = (config={}) => WrappedComponent => {
   const { mapper, translater } = config
 
   let invertedMapper
@@ -15,7 +15,7 @@ const withQuery = (config={}) => WrappedComponent => {
     invertedMapper = invert(mapper)
   }
 
-  class _withQuery extends PureComponent {
+  class _withReactQuery extends PureComponent {
     constructor(props) {
       super(props)
       this.query = {
@@ -25,6 +25,11 @@ const withQuery = (config={}) => WrappedComponent => {
         getSearchFromUpdate: this.getSearchFromUpdate,
         getTranslatedParams: this.getTranslatedParams
       }
+    }
+
+    getQueryParams = () => {
+      const { location } = this.props
+      return selectQueryParamsFromQueryString(location.search)
     }
 
     getSearchFromAdd = (key, value) => {
@@ -39,7 +44,7 @@ const withQuery = (config={}) => WrappedComponent => {
       } else if (typeof previousValue === 'undefined') {
         /* eslint-disable no-console */
         console.warn(
-          `Weird did you forget to mention this ${key} query param in your withQuery hoc?`
+          `Weird did you forget to mention this ${key} query param in your withReactQuery hoc?`
         )
       }
 
@@ -47,7 +52,6 @@ const withQuery = (config={}) => WrappedComponent => {
     }
 
     getSearchFromUpdate = notTranslatedQueryParamsUpdater => {
-      const { location } = this.props
       const queryParams = this.getQueryParams()
 
       let queryParamsUpdater = notTranslatedQueryParamsUpdater
@@ -83,12 +87,7 @@ const withQuery = (config={}) => WrappedComponent => {
 
       const nextLocationSearch = stringify(nextQueryParams)
 
-      return nextLocationSearch
-    }
-
-    getQueryParams = () => {
-      const { location } = this.props
-      return selectQueryParamsFromQueryString(location.search)
+      return `?${nextLocationSearch}`
     }
 
     getSearchFromRemove = (key, value) => {
@@ -105,7 +104,7 @@ const withQuery = (config={}) => WrappedComponent => {
         return this.getSearchFromUpdate({ [key]: nextValue })
       } else if (typeof previousValue === 'undefined') {
         console.warn(
-          `Weird did you forget to mention this ${key} query param in your withQuery hoc?`
+          `Weird did you forget to mention this ${key} query param in your withReactQuery hoc?`
         )
       }
     }
@@ -122,19 +121,24 @@ const withQuery = (config={}) => WrappedComponent => {
     }
 
     render() {
-      return <WrappedComponent {...this.props} query={this.query} />
+      return (
+        <WrappedComponent
+          {...this.props}
+          query={this.query}
+        />
+      )
     }
   }
 
-  _withQuery.propTypes = {
+  _withReactQuery.propTypes = {
     location: PropTypes.shape({
       search: PropTypes.string.isRequired
     }).isRequired,
   }
 
-  _withQuery.WrappedComponent = WrappedComponent
+  _withReactQuery.WrappedComponent = WrappedComponent
 
-  return _withQuery
+  return _withReactQuery
 }
 
-export default withQuery
+export default withReactQuery
