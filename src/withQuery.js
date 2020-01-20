@@ -101,6 +101,9 @@ const withQuery = (config={}) => WrappedComponent => {
         if (nextValue[0] === ',') {
           nextValue = nextValue.slice(1)
         }
+        if (nextValue.trim() === "") {
+          nextValue = null
+        }
         return this.getSearchFromUpdate({ [key]: nextValue })
       } else if (typeof previousValue === 'undefined') {
         console.warn(
