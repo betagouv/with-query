@@ -1,4 +1,4 @@
-import { selectQueryParamsFromQueryString } from '../selectQueryParamsFromQueryString'
+import selectQueryParamsFromQueryString from '../selectQueryParamsFromQueryString'
 
 describe('selectQueryParamsFromQueryString', () => {
   it('it parses a query string with memoized buffer', () => {

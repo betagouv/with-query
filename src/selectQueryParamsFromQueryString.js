@@ -5,9 +5,7 @@ function mapArgsToCacheKey(queryString) {
   return queryString
 }
 
-export const selectQueryParamsFromQueryString = createCachedSelector(
+export default createCachedSelector(
   queryString => queryString,
   queryString => parse(queryString)
 )(mapArgsToCacheKey)
-
-export default selectQueryParamsFromQueryString

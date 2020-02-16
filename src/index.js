@@ -1,6 +1,7 @@
 import withQuery from './withQuery'
 
-export * from './getObjectWithMappedKeys'
-export * from './selectQueryParamsFromQueryString'
+export default as getObjectWithMappedKeys from './getObjectWithMappedKeys'
+export default as selectQueryParamsFromQueryString from './selectQueryParamsFromQueryString'
+export default as useQuery from './useQuery'
 
 export default withQuery
