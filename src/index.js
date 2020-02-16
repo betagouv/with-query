@@ -1,6 +1,10 @@
+import getObjectWithMappedKeys from './getObjectWithMappedKeys'
+import useQuery from './useQuery'
 import withQuery from './withQuery'
 
-export default as getObjectWithMappedKeys from './getObjectWithMappedKeys'
-export default as useQuery from './useQuery'
+export {
+  getObjectWithMappedKeys,
+  useQuery
+}
 
 export default withQuery
