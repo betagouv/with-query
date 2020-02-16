@@ -1,9 +1,8 @@
 import invert from 'lodash.invert'
 import uniq from 'lodash.uniq'
-import { stringify } from 'query-string'
+import { parse, stringify } from 'query-string'
 import React, { useCallback, useMemo } from 'react'
 
-import selectQueryParamsFromQueryString from './selectQueryParamsFromQueryString'
 import getObjectWithMappedKeys from './getObjectWithMappedKeys'
 
 
@@ -12,13 +11,9 @@ const useQuery = (config={}) => {
   const { search } = location
 
   const invertedMapper = useMemo(() => mapper && invert(mapper), [mapper])
-
-  const getParams = useCallback(() =>
-    selectQueryParamsFromQueryString(search), [search])
+  const params = useMemo(() => parse(search), [search])
 
   const getSearchFromUpdate = useCallback(notTranslatedQueryParamsUpdater => {
-    const params = getParams()
-
     let paramsUpdater = notTranslatedQueryParamsUpdater
     if (translater) {
       paramsUpdater = translater(paramsUpdater)
@@ -52,12 +47,10 @@ const useQuery = (config={}) => {
     const nextLocationSearch = stringify(nextQueryParams)
 
     return `?${nextLocationSearch}`
-  }, [getParams])
+  }, [params])
 
 
   const getSearchFromAdd = useCallback((key, value) => {
-    const params = getParams()
-
     let nextValue = value
     const previousValue = params[key]
     if (previousValue && previousValue.length) {
@@ -72,12 +65,10 @@ const useQuery = (config={}) => {
     }
 
     return getSearchFromUpdate({ [key]: nextValue })
-  }, [getParams])
+  }, [params])
 
 
   const getSearchFromRemove = useCallback((key, value) => {
-    const params = getParams()
-
     const previousValue = params[key]
     if (previousValue && previousValue.length) {
       let nextValue = previousValue
@@ -90,32 +81,28 @@ const useQuery = (config={}) => {
         nextValue = null
       }
       return getSearchFromUpdate({ [key]: nextValue })
-    } else if (typeof previousValue === 'undefined') {
+    }
+    if (typeof previousValue === 'undefined') {
       console.warn(
         `Weird did you forget to mention this ${key} query param in your withQuery hoc?`
       )
     }
-  }, [getParams])
+  }, [params])
 
 
-  const getTranslatedParams = useCallback(() => {
-    const params = getParams()
-    if (translater) {
-      return translater(params)
-    }
-    if (mapper) {
-      return getObjectWithMappedKeys(params, mapper)
-    }
+  const translatedParams = useMemo(() => {
+    if (translater) return translater(params)
+    if (mapper) return getObjectWithMappedKeys(params, mapper)
     return params
-  }, [getParams])
+  }, [params])
 
 
   return {
-    getParams,
     getSearchFromAdd,
     getSearchFromRemove,
     getSearchFromUpdate,
-    getTranslatedParams
+    params,
+    translatedParams
   }
 }
 

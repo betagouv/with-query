@@ -13,8 +13,7 @@
     "query-string": "^5.1.1",
     "re-reselect": "^2.1.0",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "reselect": "^3.0.1"
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.1",

@@ -5,7 +5,7 @@ A small wrapper of react-router parsing the query params from the location.searc
 [![CircleCI](https://circleci.com/gh/betagouv/with-react-query/tree/master.svg?style=svg)](https://circleci.com/gh/betagouv/with-react-query/tree/master)
 [![npm version](https://img.shields.io/npm/v/with-react-query.svg?style=flat-square)](https://npmjs.org/package/with-react-query)
 
-## Basic usage with `getParams`
+## Basic usage with `params`
 ```javascript
 
 // Let's say you are at location '/foo?counter=1'
@@ -17,14 +17,14 @@ class FooPage extends PureComponent {
 
   onIncrementCounter = () => {
     const { history, query } = this.props
-    const { counter } = query.parse()
+    const { getSearchFromUpdate, params: { counter } } = query
     // navigate to /foo?counter=2
-    history.push(query.getSearchFromUpdate({ counter: counter + 1 }))
+    history.push(getSearchFromUpdate({ counter: counter + 1 }))
   }
 
   render () {
     const { query } = this.props
-    const { counter } = query.getParams()
+    const { params: { counter } } = query
     return (
       <div>
         My counter is equal to {counter}
