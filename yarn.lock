@@ -5987,11 +5987,6 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-re-reselect@^2.1.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/re-reselect/-/re-reselect-2.3.0.tgz#96bb8dcb6d45b16902cea496b048e1fa00925490"
-  integrity sha512-B3j54+0QyvAWGioJxeaq8BJ7XdwSuiyglbHgnWk6v5GpYJDlA8JvsGXixFOXF7txnEm3QuaCQ0LP1gUKR6Tc9w==
-
 react-addons-test-utils@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.6.2.tgz#c12b6efdc2247c10da7b8770d185080a7b047156"
@@ -6365,11 +6360,6 @@ require-relative@^0.8.7:
   version "0.8.7"
   resolved "https://registry.yarnpkg.com/require-relative/-/require-relative-0.8.7.tgz#7999539fc9e047a37928fa196f8e1563dabd36de"
   integrity sha1-eZlTn8ngR6N5KPoZb44VY9q9Nt4=
-
-reselect@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
-  integrity sha1-79qpjqdFEyTQkrKyFjpqHXqaIUc=
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
