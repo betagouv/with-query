@@ -9,7 +9,7 @@ const withQuery = config => WrappedComponent => {
     return (
       <WrappedComponent
         {...props}
-        query={useQuery({...config, location})}
+        query={useQuery(location, config)}
       />
     )
   }

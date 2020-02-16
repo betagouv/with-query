@@ -6,8 +6,8 @@ import React, { useCallback, useMemo } from 'react'
 import getObjectWithMappedKeys from './getObjectWithMappedKeys'
 
 
-const useQuery = (config={}) => {
-  const { location, mapper, translater } = config
+const useQuery = (location, config={}) => {
+  const { mapper, translater } = config
   const { search } = location
 
   const invertedMapper = useMemo(() => mapper && invert(mapper), [mapper])
