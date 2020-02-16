@@ -4,15 +4,12 @@ import useQuery from './useQuery'
 
 
 const withQuery = config => WrappedComponent => {
-  const _withQuery = props => {
-    const { location } = props
-    return (
-      <WrappedComponent
-        {...props}
-        query={useQuery(location, config)}
-      />
-    )
-  }
+  const _withQuery = props => (
+    <WrappedComponent
+      {...props}
+      query={useQuery(props.location.search, config)}
+    />
+  )
 
   _withQuery.WrappedComponent = WrappedComponent
 

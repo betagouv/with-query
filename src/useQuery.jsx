@@ -6,12 +6,11 @@ import React, { useCallback, useMemo } from 'react'
 import getObjectWithMappedKeys from './getObjectWithMappedKeys'
 
 
-const useQuery = (location, config={}) => {
+const useQuery = (querySearchString, config={}) => {
   const { mapper, translater } = config
-  const { search } = location
 
   const invertedMapper = useMemo(() => mapper && invert(mapper), [mapper])
-  const params = useMemo(() => parse(search), [search])
+  const params = useMemo(() => parse(querySearchString), [querySearchString])
 
   const getSearchFromUpdate = useCallback(notTranslatedQueryParamsUpdater => {
     let paramsUpdater = notTranslatedQueryParamsUpdater
