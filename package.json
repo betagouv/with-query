@@ -1,6 +1,6 @@
 {
   "name": "with-react-query",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": false,
   "main": "lib/index.js",
   "license": "MPL-2.0",
