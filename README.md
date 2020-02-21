@@ -71,7 +71,7 @@ export default Foo
 ```
 
 
-## Usage for url in foreign language with `translate`
+## Usage for url in foreign language with `getTranslatedParams`
 
 Make your app starting at `/foo?compteur=1`.
 
