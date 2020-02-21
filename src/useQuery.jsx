@@ -6,7 +6,7 @@ import React, { useCallback, useMemo } from 'react'
 import getObjectWithMappedKeys from './getObjectWithMappedKeys'
 
 
-const useQuery = (querySearchString, config={}) => {
+export default (querySearchString, config={}) => {
   const { mapper, translater } = config
 
   const invertedMapper = useMemo(() => mapper && invert(mapper), [mapper])
@@ -104,6 +104,3 @@ const useQuery = (querySearchString, config={}) => {
     translatedParams
   }
 }
-
-
-export default useQuery

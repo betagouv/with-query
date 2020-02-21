@@ -6,19 +6,21 @@ A small wrapper of react-router parsing the query params from the location.searc
 [![npm version](https://img.shields.io/npm/v/with-react-query.svg?style=flat-square)](https://npmjs.org/package/with-react-query)
 
 ## Basic usage with `params`
-```javascript
 
-// Let's say you are at location '/foo?counter=1'
+Make your app starting at `/foo?counter=1`.
+
+### react old school
+
+```javascript
 import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
-import withReactQuery from 'with-react-query'
+import withQuery from 'with-react-query'
 
-class FooPage extends PureComponent {
+class Foo extends PureComponent {
 
-  onIncrementCounter = () => {
+  handleIncrementCounter = () => {
     const { history, query } = this.props
     const { getSearchFromUpdate, params: { counter } } = query
-    // navigate to /foo?counter=2
     history.push(getSearchFromUpdate({ counter: counter + 1 }))
   }
 
@@ -28,7 +30,7 @@ class FooPage extends PureComponent {
     return (
       <div>
         My counter is equal to {counter}
-        <button onClick={this.onIncrementCounter}>
+        <button onClick={this.handleIncrementCounter}>
           Increment
         </button>
       </div>
@@ -36,23 +38,53 @@ class FooPage extends PureComponent {
   }
 }
 
-export default withRouter(withReactQuery()(FooPage))
+export default withRouter(withQuery()(Foo))
 ```
 
-## Usage for url in foreign language with `translate`
-```javascript
+### react hooks school
 
-// Let's say you are at location '/foo/compteur=1'
+```javascript
+import React, { useCallback } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import { useQuery } from 'with-react-query'
+
+const Foo = () => {
+  const history = useHistory()
+  const location = useLocation()
+  const { getSearchFromUpdate, params: { counter } } = useQuery(location.search)
+
+  const handleIncrementCounter = useCallback(() =>
+    history.push(getSearchFromUpdate({ counter: counter + 1 })),
+    [counter, getSearchFromUpdate, history])
+
+  return (
+    <div>
+      My counter is equal to {counter}
+      <button onClick={handleIncrementCounter}>
+        Increment
+      </button>
+    </div>
+  )
+}
+
+export default Foo
+```
+
+
+## Usage for url in foreign language with `translate`
+
+Make your app starting at `/foo?compteur=1`.
+
+```javascript
 import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
 import withReactQuery from 'with-react-query'
 
-class FooPage extends PureComponent {
+class Foo extends PureComponent {
 
-  onIncrementCounter = () => {
+  handleIncrementCounter = () => {
     const { history, query } = this.props
     const { counter } = query.getTranslatedParams()
-    // navigate to /foo?compteur=2
     history.push(query.getSearchFromUpdate({ counter: counter + 1 }))
   }
 
@@ -62,7 +94,7 @@ class FooPage extends PureComponent {
     return (
       <div>
         My counter is equal to {counter}
-        <button onClick={this.onIncrementCounter}>
+        <button onClick={this.handleIncrementCounter}>
           Increment
         </button>
       </div>
@@ -70,7 +102,7 @@ class FooPage extends PureComponent {
   }
 }
 
-export default withRouter(withReactQuery({
+export default withRouter(withQuery({
   mapper: { compteur: "counter" }
-})(FooPage))
+})(Foo))
 ```
