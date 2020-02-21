@@ -17,9 +17,9 @@ describe('src | components | pages | hocs | withQuery', () => {
     })
   })
 
-  describe('functions ', () => {
-    describe('getParams', () => {
-      it('withQuery passes a query.getParams function that formats the location search string into in a params object', () => {
+  describe('query', () => {
+    describe('params', () => {
+      it('withQuery passes a query.params object that formats the location search string into in a params object', () => {
         // given
         const history = createBrowserHistory()
         history.push('/test?page=1&keywords=test&orderBy=offer.id+desc')
@@ -40,12 +40,12 @@ describe('src | components | pages | hocs | withQuery', () => {
           orderBy: "offer.id desc",
           page: "1",
         }
-        expect(query.getParams()).toEqual(expectedParams)
+        expect(query.params).toEqual(expectedParams)
       })
     })
 
-    describe('getTranslatedParams', () => {
-      it('withQuery passes query.getTranslatedParams function that transforms queryParams into transltaed params thanks to a mapper', () => {
+    describe('translatedParams', () => {
+      it('withQuery passes query.translatedParams object that transforms params into translated params thanks to a mapper', () => {
         // given
         const history = createBrowserHistory()
         history.push('/test?lieu=AE')
@@ -59,7 +59,7 @@ describe('src | components | pages | hocs | withQuery', () => {
         let props = wrapper.find('Test').props()
 
         // when
-        const translatedQueryParams = props.query.getTranslatedParams()
+        const translatedQueryParams = props.query.translatedParams
 
         // then
         const expectedTranslatedQueryParams = {
